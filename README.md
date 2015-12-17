@@ -10,11 +10,11 @@ This README will walk you through the essentials on getting Django running on yo
 a version of Python. Django 1.9 supports Python 2.7, 3.4, and 3.5. The above framework will be using Python 3.5; I recommend
 also using this version. When working on a Python project, one should always attempt to work within a virtual environment.
 This prevents global changes on a system and makes it easy to identify what requirements are necessary to get a project up
-and running. In particular, if you had two Django projects but they relied on different versions of a particular package, 
+and running. In particular, if you had two Django projects but they relied on different versions of a particular package,
 setting up virtual environments means this won't introduce any complications.
 
-To install Python 3.5, I would also recommend using [Miniconda](http://conda.pydata.org/miniconda.html). It comes with a 
-separate package manager (conda) and an easy means of aquiring a variety of different packages. These packages tend to be 
+To install Python 3.5, I would also recommend using [Miniconda](http://conda.pydata.org/miniconda.html). It comes with a
+separate package manager (conda) and an easy means of aquiring a variety of different packages. These packages tend to be
 scientific in nature, but still can provide a lot of functionality (perhaps we want to upload a dynamic Matplotlib depending
 on user input). To create the virtual environment called `myenv`, enter the following into your shell of choice:
 
@@ -62,7 +62,7 @@ Even better, perhaps consider running the following after you finish installing 
 something:
 
 ```
-pip freeze -r requirements.txt
+pip freeze > requirements.txt
 ```
 
 Configuration
@@ -75,7 +75,7 @@ project. As a safety precaution, I include the settings file in the .gitignore a
 changes that others must also work on, let us know and we'll notify everyone working on the project.
 
 It would be nice if we were to have private repositories so as not to worry about this (though many people argue you still
-shouldn't include anything confidential even in this case), but, since we don't want to spend any unnecessary money, just 
+shouldn't include anything confidential even in this case), but, since we don't want to spend any unnecessary money, just
 make sure to be careful.
 
 Database
@@ -125,10 +125,10 @@ ALTER USER ${USERNAME} WITH SUPERUSER;
 
 If you used the same username as your shell, you can simply call `psql` once you exit out of root (<CTRL-D> a couple of
 times), and otherwise repeat with `su - ${USERNAME}` and enter the password you entered. To connect to the database you
-just created, run `psql ${DATABASE_NAME}`. 
+just created, run `psql ${DATABASE_NAME}`.
 
 You may not be able to login depending on your authentication protocol. To fix this, go to
-`/etc/postgresql/X.Y/main/pg_hba.conf` (where X.Y denote the version number) and modify and change the word `ident` or 
+`/etc/postgresql/X.Y/main/pg_hba.conf` (where X.Y denote the version number) and modify and change the word `ident` or
 `peer` to `trust` instead. Lastly, reload postgresql and try again:
 
 ```
