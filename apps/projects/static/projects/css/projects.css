@@ -3,6 +3,7 @@
     clear: both;
     height: 280px;
     margin: 0 auto;
+    position: relative;
     padding: 30px 45px;
     font-family: quicksand;
     border-top: 1px solid #CCC;
