@@ -49,7 +49,6 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 # on something like openshift, perhaps we would check for the variable OPENSHIFT instead
 
 DEBUG = 'WEBFACTION' not in os.environ
-TEMPLATE_DEBUG = DEBUG
 
 # Security (Secret Key)
 # ============================================
@@ -61,7 +60,7 @@ if DEBUG:
     import random
     SECRET_KEY = '%030x' % random.randrange(16**30)
 else:
-    SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # Allowed Hosts
 # ============================================
@@ -116,8 +115,8 @@ MIDDLEWARE_CLASSES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '{database-name}',
-        'USER': '{user-name}',
+        'NAME': 'portfolio',
+        'USER': 'jrpotter',
         'PASSWORD': os.environ['DATABASE_PASSWORD'],
     }
 }
@@ -176,10 +175,10 @@ USE_TZ = True
 # ============================================
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_ROOT = os.environ['STATIC_ROOT']
-STATIC_URL = '/static/'
+STATIC_ROOT = os.environ.get('STATIC_ROOT', '')
+STATIC_URL = '/ static/'
 STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'vendor'),
+    os.path.join(BASE_DIR, 'vendor')
 )
 
 # Administrators
@@ -187,16 +186,16 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/1.9/ref/settings/#admins
 
 ADMINS = (
-    ('{admin-user-name}', '{admin-email}'),
+    ('jrpotter', 'jrpotter2112@gmail.com'),
 )
 
 # Email
 # ============================================
 # https://docs.djangoproject.com/en/1.7/ref/settings/#email
 
-EMAIL_HOST_USER = '{username}'
+EMAIL_HOST_USER = 'jrpotter'
 EMAIL_HOST = 'smtp.webfaction.com'
 SERVER_EMAIL = '{email}'
 DEFAULT_FROM_EMAIL = '{email}'
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <head>
+        <title>Online Portfolio</title>
+        <link type="text/css" rel="stylesheet" href="{% static 'foundation/stylesheets/foundation.css' %}" />
+        <link type="text/css" rel="stylesheet" href="{% static 'home/css/index.css' %}" />
+    </head>
+    <body ng-app="rootApplication">
+        <div id="hero">
+            <canvas width="1500" height="550"></canvas>
+        </div>
+
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>-->
+        <script src="{% static 'foundation/javascripts/foundation.min.js' %}"></script>
+        <script src="{% static 'home/js/home.js' %}"></script>
+    </body>
+</html>

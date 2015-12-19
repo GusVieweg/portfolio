@@ -1,2 +1,7 @@
-.env
+.pid
+.idea
+conf/.env
 venv
+__pycache__/
+staticfiles/
+*.py[cod]
