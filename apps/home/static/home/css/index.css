@@ -1,4 +1,37 @@
+@font-face {
+    font-family: quicksand;
+    src: url('/static/fonts/Quicksand-Regular.otf');
+}
+
 #hero canvas {
     width: 100%;
     height: auto;
+}
+
+#hero div {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 10%;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    text-align: center;
+    position: absolute;
+    border-bottom: 2px solid #222222;
+}
+
+#hero div img {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 2000px;
+    border: 5px solid #222222;
+}
+
+#hero div span {
+    color: white;
+    display: block;
+    font-size: 35pt;
+    font-family: quicksand;
+    padding-top: 20px;
 }
