@@ -49,11 +49,20 @@
     border-top: 2px solid #222222;
 }
 
+#content-description {
+    width: 80%;
+    display: block;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto 20px;
+    font-family: quicksand;
+}
+
 #navigation {
     width: 60%;
     cursor: default;
     padding: 10px 0;
-    margin: 20px auto 10px;
+    margin: 20px auto 20px;
     border-top: 1px solid #222;
     border-bottom: 1px solid #222;
 }

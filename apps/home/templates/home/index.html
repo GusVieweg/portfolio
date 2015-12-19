@@ -5,6 +5,7 @@
         <title>Online Portfolio</title>
         <link type="text/css" rel="stylesheet" href="{% static 'foundation/stylesheets/foundation.css' %}" />
         <link type="text/css" rel="stylesheet" href="{% static 'home/css/index.css' %}" />
+        <link type="text/css" rel="stylesheet" href="{% static 'projects/css/projects.css' %}" />
     </head>
     <body ng-app="rootApplication">
         <div id="hero">
@@ -23,6 +24,50 @@
                     <li><span>Contact</span></li>
                 </ul>
             </div>
+            <!-- Partial -->
+            <span id="content-description">List of notable projects I've worked on recently.</span>
+            <section class="project">
+                <div class="icon">
+                    <img src="{% static 'projects/imgs/appetite.png' %}" />
+                </div>
+                <div class="description"></div>
+            </section>
+            <section class="project">
+                <div class="icon">
+                    <img src="{% static 'projects/imgs/fifth-cam.png' %}" />
+                </div>
+                <div class="description"></div>
+            </section>
+            <section class="project">
+                <div class="icon">
+                    <img src="{% static 'projects/imgs/gitit-notes.png' %}" />
+                </div>
+                <div class="description"></div>
+            </section>
+            <section class="project">
+                <div class="icon">
+                    <img src="{% static 'projects/imgs/lodestar.png' %}" />
+                </div>
+                <div class="description"></div>
+            </section>
+            <section class="project">
+                <div class="icon">
+                    <img src="{% static 'projects/imgs/mingle.png' %}" />
+                </div>
+                <div class="description"></div>
+            </section>
+            <section class="project">
+                <div class="icon">
+                    <img src="{% static 'projects/imgs/mini-java.png' %}" />
+                </div>
+                <div class="description"></div>
+            </section>
+            <section class="project">
+                <div class="icon">
+                    <img src="{% static 'projects/imgs/project-euler.png' %}" />
+                </div>
+                <div class="description"></div>
+            </section>
         </div>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>-->
         <script src="{% static 'foundation/javascripts/foundation.min.js' %}"></script>

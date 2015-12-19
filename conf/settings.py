@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'foundation',
     'apps.home',
+    'apps.projects',
     'apps.sample',
 ]
 
