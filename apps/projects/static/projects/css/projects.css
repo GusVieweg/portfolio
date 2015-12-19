@@ -1,12 +1,35 @@
-section.project {
+#content .project {
     width: 80%;
+    clear: both;
+    height: 280px;
     margin: 0 auto;
     padding: 30px 45px;
+    font-family: quicksand;
     border-top: 1px solid #CCC;
 }
 
-section.project .icon img {
+#content .project .icon {
+    float: left;
+    padding-right: 25px;
+    padding-bottom: 30px;
+}
+
+#content .project .icon img {
     width: 225px;
     height: 225px;
     border-radius: 2000px;
+}
+
+#content .project .project-container .title {
+    font-size: 25px;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    text-decoration: underline;
+    font-family: quicksand-bold;
+}
+
+#content .project .project-container .date {
+    font-size: 15px;
+    font-style: italic;
+    padding-bottom: 10px;
 }

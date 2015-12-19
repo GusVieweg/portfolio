@@ -1,12 +1,12 @@
 {% verbatim %}
-<section class="project" ng-repeat="item in projects.items">
+<section class="project" ng-repeat="project in content.projects">
     <div class="icon">
-        <img src="{{ item.img_src }}" />
+        <img src="static/projects/imgs/{{ project.img_src }}" />
     </div>
-    <div class="description">
-        <span class="title">{{ item.title }}</span>
-        <span class="date">{{ item.date }}</span>
-        <p>{{ item.description }}</p>
+    <div class="project-container">
+        <div class="title">{{ project.title }}</div>
+        <div class="date">{{ project.date }}</div>
+        <p>{{ project.description }}</p>
     </div>
 </section>
 {% endverbatim %}

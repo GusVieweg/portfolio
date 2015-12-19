@@ -14,7 +14,7 @@ class ProjectList(APIView):
         :param format:
         :return:
         """
-        projects = Project.objects.all()
+        projects = Project.objects.all().order_by('title')
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
 
