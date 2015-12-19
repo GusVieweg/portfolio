@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+source venv/bin/activate
+pip install -r requirements.txt
+./manage.py migrate
+gunicorn -b 75.126.183.217:16345 -w 4 conf.wsgi:application

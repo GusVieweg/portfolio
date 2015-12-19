@@ -73,7 +73,7 @@ ALLOWED_HOSTS = []
 if DEBUG:
     ALLOWED_HOSTS.append('*')
 else:
-    ALLOWED_HOSTS.append('.{domain-name}.com')
+    ALLOWED_HOSTS.append('.josh-potter.com')
 
 
 # Application Definition
@@ -116,7 +116,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'portfolio',
-        'USER': 'jrpotter',
+        'USER': os.environ.get('DATABASE_USER', 'jrpotter'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
     }
 }
@@ -195,7 +195,7 @@ ADMINS = (
 
 EMAIL_HOST_USER = 'jrpotter'
 EMAIL_HOST = 'smtp.webfaction.com'
-SERVER_EMAIL = '{email}'
-DEFAULT_FROM_EMAIL = '{email}'
+SERVER_EMAIL = 'support@josh-potter.com'
+DEFAULT_FROM_EMAIL = 'support@josh-potter.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 
