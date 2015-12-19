@@ -88,3 +88,30 @@
 #navigation ul li span {
     cursor: pointer;
 }
+
+#footer {
+    height: 250px;
+    background-color: #222;
+}
+
+#contact-form {
+    margin: 0;
+    width: 45%;
+    float: right;
+    padding: 10px;
+}
+
+#contact-form fieldset {
+    margin: 0;
+    border-radius: 5px;
+}
+
+#contact-form fieldset legend {
+    color: white;
+    background: inherit;
+    font-family: quicksand;
+}
+
+#contact-form textarea {
+    height: 145px;
+}
