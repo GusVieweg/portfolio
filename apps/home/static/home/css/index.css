@@ -3,6 +3,17 @@
     src: url('/static/fonts/Quicksand-Regular.otf');
 }
 
+@font-face {
+    font-family: quicksand-bold;
+    src: url('/static/fonts/Quicksand-Bold.otf');
+}
+
+#hero {
+    overflow: hidden;
+    position: relative;
+    border-bottom: 2px solid #222222;
+}
+
 #hero canvas {
     width: 100%;
     height: auto;
@@ -10,13 +21,10 @@
 
 #hero div {
     width: 100%;
-    overflow: hidden;
-    padding-top: 10%;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    text-align: center;
     position: absolute;
-    border-bottom: 2px solid #222222;
+    text-align: center;
+    top: 5px; bottom: 5px;
+    left: 5px; right: 5px;
 }
 
 #hero div img {
@@ -34,4 +42,40 @@
     font-size: 35pt;
     font-family: quicksand;
     padding-top: 20px;
+}
+
+#content {
+    margin-top: -4px; /* Webkit bug; div does not surround canvas */
+    border-top: 2px solid #222222;
+}
+
+#navigation {
+    width: 60%;
+    cursor: default;
+    padding: 10px 0;
+    margin: 20px auto 10px;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+
+#navigation ul {
+    width: 100%;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+#navigation ul li {
+    width: 24.5%;
+    text-align: center;
+    display: inline-block;
+    list-style-type: none;
+    font-family: quicksand-bold;
+}
+
+#navigation ul li.active {
+    color: #00B9EB;
+}
+
+#navigation ul li span {
+    cursor: pointer;
 }

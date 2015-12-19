@@ -7,7 +7,8 @@
 */
 $(function() {
 
-    var canvas = $('#hero').find('canvas');
+    var hero = $('#hero');
+    var canvas = hero.find('canvas');
     var context = canvas.get(0).getContext('2d');
     var context_width = parseInt(canvas.attr('width'), 10);
     var context_height = parseInt(canvas.attr('height'), 10);
@@ -32,14 +33,23 @@ $(function() {
     // Draw Grid Lines
     context.beginPath();
     context.fillStyle = '#CCCCCC';
-    for(var i = 0; i < row_count + 1; i++) {
+    for(var i = 0; i < row_count; i++) {
         context.moveTo(0, i * pixel_size);
         context.lineTo(context_width, i * pixel_size);
     }
-    for(var i = 0; i < column_count + 1; i++) {
+    for(var i = 0; i < column_count; i++) {
         context.moveTo(i * pixel_size, 0);
         context.lineTo(i * pixel_size, context_height);
     }
     context.stroke();
+
+    // When scrolling, move the hero unit out of the way
+    $(window).scroll(function() {
+        var top = $(window).scrollTop();
+        var parallax = parseInt(top * -0.3) + 'px';
+        var rgba = (top / hero.height()) * 0.4;
+        canvas.css('margin-top', parallax);
+        hero.css('background', 'rgba(0,0,0,' + rgba);
+    });
 
 });
