@@ -2,6 +2,7 @@
 .idea
 conf/.env
 venv
+nginx
 __pycache__/
 staticfiles/
 *.py[cod]
