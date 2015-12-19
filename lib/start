@@ -3,4 +3,5 @@
 source venv/bin/activate
 pip install -r requirements.txt
 ./manage.py migrate
+./manage.py collectstatic --noinput
 gunicorn -b 127.0.0.1:16345 -w 4 conf.wsgi:application
