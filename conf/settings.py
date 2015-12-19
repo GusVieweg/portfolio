@@ -91,7 +91,6 @@ INSTALLED_APPS = [
     'foundation',
     'apps.home',
     'apps.projects',
-    'apps.sample',
 ]
 
 # Middleware Classes

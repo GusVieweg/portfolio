@@ -10,9 +10,15 @@
     <body ng-app="rootApplication">
         <div id="hero">
             <canvas width="1500" height="550"></canvas>
-            <div>
-                <img src="{% static 'home/imgs/avatar.jpg' %}"/>
-                <span>Joshua Potter</span>
+            <div id="hero-container">
+                <div id="hero-outer">
+                    <div id="hero-middle">
+                        <div id="hero-inner">
+                            <img src="{% static 'home/imgs/avatar.jpg' %}"/>
+                            <span>Joshua Potter</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="content">

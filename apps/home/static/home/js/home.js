@@ -43,13 +43,4 @@ $(function() {
     }
     context.stroke();
 
-    // When scrolling, move the hero unit out of the way
-    $(window).scroll(function() {
-        var top = $(window).scrollTop();
-        var parallax = parseInt(top * -0.3) + 'px';
-        var rgba = (top / hero.height()) * 0.4;
-        canvas.css('margin-top', parallax);
-        hero.css('background', 'rgba(0,0,0,' + rgba);
-    });
-
 });

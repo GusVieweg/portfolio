@@ -19,15 +19,32 @@
     height: auto;
 }
 
-#hero div {
+#hero-container {
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
     position: absolute;
-    text-align: center;
-    top: 5px; bottom: 5px;
-    left: 5px; right: 5px;
 }
 
-#hero div img {
+#hero-outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#hero-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#hero-inner {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#hero img {
     width: 200px;
     height: 200px;
     margin: 0 auto;
@@ -36,7 +53,7 @@
     border: 5px solid #222222;
 }
 
-#hero div span {
+#hero span {
     color: white;
     display: block;
     font-size: 35pt;
