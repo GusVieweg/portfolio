@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Portfolio{% endblock %}</title>
+
+        <link type="text/css" rel="stylesheet" href="{% static 'foundation/stylesheets/foundation.css' %}" />
+        <link type="text/css" rel="stylesheet" href="{% static 'base/css/base.css' %}" />
+        {% block css %}{% endblock %}
+        <script src="{% static 'foundation/javascripts/foundation.min.js' %}"></script>
+        <script src="{% static 'base/js/base.js' %}"></script>
+        {% block javascript %}{% endblock %}
+    </head>
+    <body ng-app="rootApplication">
+        <div id="hero">
+            <canvas width="1500" height="550"></canvas>
+            <div id="hero-container">
+                <div id="hero-outer">
+                    <div id="hero-middle">
+                        <div id="hero-inner">
+                            <img src="{% static 'base/imgs/avatar.jpg' %}"/>
+                            <span>Joshua Potter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block content %}
+
+        {% endblock %}
+        <div id="footer">
+            <div class="about-me"></div>
+            <form id="contact-form">
+                <fieldset>
+                    <legend>Contact Me</legend>
+                    <input type="email" placeholder="Your Email">
+                    <textarea placeholder="Your Message"></textarea>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>
