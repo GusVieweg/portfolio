@@ -1,9 +1,8 @@
 from django.http import Http404
 from django.shortcuts import render
-from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from apps.blog.models import Post
+from apps.blog.models import Post, PostCategory
 from apps.blog.serializers import PostSerializer
 
 
@@ -20,9 +19,10 @@ def blog_post(request, pk):
         post = Post.objects.get(pk=pk)
         return render(request, 'blog/post.html', {
             'title': post.title,
-            'img_src': post.img_src,
+            'category': PostCategory.objects.get(id=post.category_id),
+            'date_added': post.date_added,
+            'last_modified': post.last_modified,
             'description': post.description,
-            'date': post.date,
             'content': post.content,
         })
 
@@ -51,7 +51,7 @@ class PostList(APIView):
         :param format:
         :return:
         """
-        posts = Post.objects.all().order_by('date')
+        posts = Post.objects.all().order_by('date_added')
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
 

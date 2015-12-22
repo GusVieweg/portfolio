@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Portfolio{% endblock %}</title>
+        <link rel="shortcut icon" type="image/png" href="{% static 'imgs/favicon.ico' %}"/>
 
         <link type="text/css" rel="stylesheet" href="{% static 'foundation/stylesheets/foundation.css' %}" />
         <link type="text/css" rel="stylesheet" href="{% static 'base/css/base.css' %}" />
@@ -26,9 +27,11 @@
                 </div>
             </div>
         </div>
-        {% block content %}
+        <div id="content">
+            {% block content %}
 
-        {% endblock %}
+            {% endblock %}
+        </div>
         <div id="footer">
             <div class="about-me"></div>
             <form id="contact-form">

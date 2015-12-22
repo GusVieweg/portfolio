@@ -2,9 +2,16 @@
 {% load static %}
 {% block title %}{{ title }}{% endblock %}
 
+{% block css %}
+        <link type="text/css" rel="stylesheet" href="{% static 'blog/css/blog.css' %}" />
+{% endblock %}
+
 {% block content %}
-        {{ img_src }}
-        {{ description }}
-        {{ date }}
-        {{ content | safe }}
+        <div id="post-content">
+            <div class="title">{{ title }}</div>
+            <div class="date">{{ date_added | date:"F d, Y"}}</div>
+            <div class="entry">
+                {{ content | safe }}
+            </div>
+        </div>
 {% endblock %}
