@@ -1,7 +1,14 @@
 from django.contrib import admin
 from apps.blog.models import Post
 
-# To avoid the need to create a custom backend when I want to create a new blog post,
-# and to also bundle a means of making sure I'm the only one making these post changes,
-# I've decided to use the Django Admin site.
-admin.site.register(Post)
+
+class PostAdmin(admin.ModelAdmin):
+    """
+    To avoid the need to create a custom backend when I want to create a new blog post,
+    and to also bundle a means of making sure I'm the only one making these post changes,
+    I've decided to use the Django Admin site.
+    """
+    list_display = ('title', 'date', 'description')
+
+admin.site.register(Post, PostAdmin)
+

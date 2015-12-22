@@ -4,6 +4,7 @@
 
 {% block css %}
         <link type="text/css" rel="stylesheet" href="{% static 'home/css/index.css' %}" />
+        <link type="text/css" rel="stylesheet" href="{% static 'blog/css/blog.css' %}" />
         <link type="text/css" rel="stylesheet" href="{% static 'projects/css/projects.css' %}" />
 {% endblock %}
 
@@ -34,5 +35,6 @@
                 <span ng-show="content.isSet(3)">My latest research posts.</span>
             </div>
             <div ng-show="content.isSet(1)" ng-include="'projects/partials/list/'"></div>
+            <div ng-show="content.isSet(2)" ng-include="'blog/partials/list/'"></div>
         </div>
 {% endblock %}
