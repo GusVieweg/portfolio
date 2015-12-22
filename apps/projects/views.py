@@ -5,7 +5,19 @@ from apps.projects.models import Project
 from apps.projects.serializers import ProjectSerializer
 
 
+def get_partial(request):
+    """
+    Returns the Foundation grid containing the projects
+    :param request:
+    :return:
+    """
+    return render(request, 'projects/partials/list.html')
+
+
 class ProjectList(APIView):
+    """
+
+    """
 
     def get(self, request, format=None):
         """
@@ -17,12 +29,3 @@ class ProjectList(APIView):
         projects = Project.objects.all().order_by('title')
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
-
-    @staticmethod
-    def get_partial(request):
-        """
-        Returns the Foundation grid containing the projects
-        :param request:
-        :return:
-        """
-        return render(request, 'projects/partials/list.html')

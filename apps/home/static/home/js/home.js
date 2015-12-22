@@ -23,6 +23,12 @@
             content.projects = data;
         });
 
+        // Posts
+        content.posts = [];
+        $http.get('blog/?format=json').success(function(data) {
+            content.posts = data;
+        });
+
     }]);
 
 })();

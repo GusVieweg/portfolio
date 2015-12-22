@@ -4,7 +4,7 @@ from apps.projects import views
 
 # Partials Requests
 urlpatterns = [
-    url(r'^partials/list/', views.ProjectList.get_partial, name='projects-list-partial'),
+    url(r'^partials/list/', views.get_partial, name='projects-list-partial'),
 ]
 
 # API Requests

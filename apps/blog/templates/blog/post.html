@@ -1,0 +1,10 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+        {{ img_src }}
+        {{ description }}
+        {{ date }}
+        {{ content | safe }}
+{% endblock %}
