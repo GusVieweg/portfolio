@@ -8,8 +8,7 @@
 
 {% block content %}
         <div id="post-content">
-            <div class="title">{{ title }}</div>
-            <div class="date">{{ date_added | date:"F d, Y"}}</div>
+            <h1 class="title">{{ title }}<span class="date">{{ date_added | date:"F d, Y"}}</span></h1>
             <div class="entry">
                 {{ content | safe }}
             </div>

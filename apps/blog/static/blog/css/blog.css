@@ -49,19 +49,23 @@
     font-family: quicksand;
 }
 
+#post-content h2 {
+    font-family: quicksand;
+}
+
 #post-content .title {
-    font-size: 40px;
     padding-top: 15px;
     padding-left: 10px;
+    padding-bottom: 5px;
     font-family: quicksand-bold;
+    border-bottom: 3px dotted #CCC;
 }
 
 #post-content .date {
-    clear: right;
-    padding: 5px 0;
-    font-size: 20px;
-    padding-left: 10px;
-    border-bottom: 3px dotted #CCC;
+    float: right;
+    font-size: 25px;
+    padding-top: 15px;
+    font-family: quicksand;
 }
 
 #post-content .entry {
