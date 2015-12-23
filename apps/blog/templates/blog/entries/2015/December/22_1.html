@@ -1,0 +1,76 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block css %}
+        <link type="text/css" rel="stylesheet" href="{% static 'blog/css/blog.css' %}" />
+{% endblock %}
+
+{% block post_content %}
+        <h2>Motivation</h2>
+        <p>
+            So I've finally gotten around to building up a website for myself, and, while I'm off of school for another
+            couple of weeks or so, I figured it would be a good time to go ahead and start writing things out. I guess to
+            begin with I should introduce myself. My name is Joshua Potter. I'm a computer science and math major
+            currently at the University of North Carolina at Chapel Hill, graduating in approximately 5 months. In my
+            free time I like to program different things, rock climb, study, and play guitar. And that's about it...
+        </p>
+        <p>
+            Well alright, I don't think two sentences is adequate in describing anyone completely, let alone myself,
+            but I have trouble organizing exactly what my "core" features are. This brings me (albeit clumsily) to my
+            first goal of this blog. Though I may not be able to clearly explain who I am, I hope I can look back over
+            some series of posts and perhaps at least see who I was over the course of some period of time. By having
+            an actual forum to write out to, I anticipate more pressure in keeping this site up-to-date and,
+            consequently, to continue writing posts out. And because this is public, I hope this forces me to write
+            with as much clarity as possible, regardless of whether or not someone actually reads this.
+        </p>
+        <p>
+            Secondly, there has always been something very appealing about recording my thoughts onto something. I've
+            tried other blogging platforms before as well as physical journals, but I found I lost interest in both
+            fairly quickly or felt the task became a bit tedious. With the blogging platforms, I lacked control on the
+            features I'd like to include, and the physical entries simply took far too long. I'm also a bit of a
+            perfectionist and whenever I made a typo, I often would rewrite the entire entry. At the risk of sounding
+            a bit corny (which I anticipate I'll sound for a considerable while), there is something romantic about
+            the idea of recording one's thoughts. Though I clearly won't include everything I'm thinking, the notion of
+            looking through my archives and figuring out where I was or how I felt based on the context of what I was
+            writing is incredibly attractive. Plus, an excuse to feel like I'm being productive is always nice to have.
+        </p>
+        <h2>Site Status</h2>
+        <p>
+            Before jumping into the features that I'd like to eventually include, I think I should just quickly brush
+            over the organization of the site. To begin with, the projects tab should be pretty self-explanatory.
+            In the list are certain projects (either school-related or independently worked on) that I've written over
+            the course of my computer science career. Considering one of my intentions with my overall site is to serve
+            as a portfolio for others to be able to view my work, I deemed the projects tab should be on the front.
+            Next, I'll explain the distinction I make between the "blog" and "research" tabs. Both will contain content
+            much like this current post (though I'll definitely start including pictures and diagrams for all subsequent
+            posts), but my "blog" tab will focus on content related to me personally, be it how I feel, certain
+            philosophical arguments on my head, different musical projects I wanted to share, etc. The "research" tab
+            will alternatively contain posts regarding certain concepts I've been exploring. For instance, I anticipate
+            my first post being an in depth explanation on how Fourier transforms work, the applications of this,
+            possible visualizations (probably written with Matplotlib in the backend), etc. That is, the "research" tab
+            will contain more academically related content while the "blog" tab will contain everything else. As such,
+            it should be expected that the "research" tab will be updated much more slowly.
+        </p>
+        <p>
+            Lastly, let's move on to the features I'd like to eventually include. First off, I want to eventually
+            include a means of controlling the amount of content displayed when first loading my page. This will be
+            pretty simple (basic AJAX calls), but I mention this because,  as of the time of this writing, there is
+            no need to include them. Secondly, once content begins growing, I'd like to include options on how posts
+            should be displayed. My projects list in particular may be a bit difficult to navigate, but perhaps an
+            optional means of displaying a grid instead would prove more useful. Third, I'd like to incorporate
+            <a href="http://pandoc.org/">Pandoc</a> and write my posts in Markdown, converting them to HTML via some
+            pipeline when saving posts. I still have a lot more I'd like to add, but these will probably take priority,
+            and I'll include another update once these changes are in effect.
+         </p>
+        <h2>Conclusion</h2>
+        <p>
+            These "meta" posts regarding the status of the site itself should be far and in between. But as an initial
+            post I thought it would be appropriate to include. How frequently I'll update this site with less technical
+            posts I'm not sure, but I hope it'll be relatively often for my own sake. If no updates occur from this
+            point onward, thanks for taking the time to read this post. But if not, please feel free to keep following.
+        </p>
+        <p>
+            Until next time!
+        </p>
+{% endblock %}

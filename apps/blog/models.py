@@ -27,4 +27,4 @@ class Post(models.Model):
     last_modified = models.DateField(auto_now=True)
     date_added = models.DateField(auto_now_add=True)
     description = models.TextField(null=True, blank=True)
-    content = models.TextField()
+    content_url = models.URLField(max_length=255)

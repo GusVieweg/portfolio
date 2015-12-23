@@ -10,7 +10,7 @@
         <div id="post-content">
             <h1 class="title">{{ title }}<span class="date">{{ date_added | date:"F d, Y"}}</span></h1>
             <div class="entry">
-                {{ content | safe }}
+                {% block post_content %}{% endblock %}
             </div>
         </div>
 {% endblock %}

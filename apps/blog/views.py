@@ -17,13 +17,12 @@ def blog_post(request, pk):
     """
     try:
         post = Post.objects.get(pk=pk)
-        return render(request, 'blog/post.html', {
+        return render(request, post.content_url, {
             'title': post.title,
             'category': PostCategory.objects.get(id=post.category_id),
             'date_added': post.date_added,
             'last_modified': post.last_modified,
             'description': post.description,
-            'content': post.content,
         })
 
     except Post.DoesNotExist:
