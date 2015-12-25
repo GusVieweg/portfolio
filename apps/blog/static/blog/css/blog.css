@@ -9,14 +9,6 @@
     border-top: 1px solid #CCC;
 }
 
-#content .post a {
-    color: #00B9EB;
-}
-
-#content .post a:hover {
-    color: #2ba6cb
-}
-
 #content .post .icon {
     float: left;
     padding-right: 25px;
