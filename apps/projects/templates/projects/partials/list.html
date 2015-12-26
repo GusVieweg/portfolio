@@ -1,9 +1,9 @@
 {% verbatim %}
-<section class="project" ng-repeat="project in content.projects">
+<section class="listing" ng-repeat="project in content.projects">
     <div class="icon">
         <img src="static/projects/imgs/{{ project.img_src }}" />
     </div>
-    <div class="project-container">
+    <div>
         <div class="title"><a href="{{ project.git }}" target="_blank">{{ project.title }}</a></div>
         <div class="date">{{ project.date | date:'longDate' }}</div>
         <p>{{ project.description }}</p>

@@ -1,9 +1,9 @@
 {% verbatim %}
-<section class="post" ng-repeat="post in content.posts">
+<section class="listing" ng-repeat="post in content.posts">
     <div class="icon">
         <img src="static/blog/imgs/{{ post.category.img_src }}" />
     </div>
-    <div class="post-container">
+    <div>
         <div class="title"><a href="blog/{{ post.id }}" target="_blank">{{ post.title }}</a></div>
         <div class="date">{{ post.date_added | date:'longDate' }}</div>
         <p>{{ post.description }}</p>

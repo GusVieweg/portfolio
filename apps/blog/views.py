@@ -50,7 +50,7 @@ class PostList(APIView):
         :param format:
         :return:
         """
-        posts = Post.objects.all().order_by('date_added')
+        posts = Post.objects.all().order_by('-date_added')
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
 

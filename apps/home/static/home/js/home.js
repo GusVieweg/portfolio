@@ -29,6 +29,12 @@
             content.posts = data;
         });
 
+        // Research
+        content.research = [];
+        $http.get('research/?format=json').success(function(data) {
+            content.research = data;
+        });
+
     }]);
 
 })();
