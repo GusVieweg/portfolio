@@ -46,6 +46,15 @@
     padding-bottom: 10px;
 }
 
+/* X-small */
+@media only screen and (max-width: 24em) {
+
+    #content .listing-container {
+        display: none;
+    }
+
+}
+
 /* Small and down */
 @media only screen and (max-width: 40em) {
 

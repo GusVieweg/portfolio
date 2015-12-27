@@ -1,7 +1,9 @@
 {% verbatim %}
 <section class="listing" ng-repeat="post in content.posts">
     <div class="icon">
-        <img src="static/blog/imgs/{{ post.category.img_src }}" />
+        <a href="blog/{{ post.id }}" target="_blank">
+            <img src="static/blog/imgs/{{ post.category.img_src }}" />
+        </a>
     </div>
     <div class="listing-container">
         <div class="title"><a href="blog/{{ post.id }}" target="_blank">{{ post.title }}</a></div>

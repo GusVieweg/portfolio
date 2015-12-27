@@ -1,7 +1,9 @@
 {% verbatim %}
 <section class="listing" ng-repeat="project in content.projects">
     <div class="icon">
-        <img src="static/projects/imgs/{{ project.img_src }}" />
+        <a href="{{ project.git }}" target="_blank">
+            <img src="static/projects/imgs/{{ project.img_src }}" />
+        </a>
     </div>
     <div class="listing-container">
         <div class="title"><a href="{{ project.git }}" target="_blank">{{ project.title }}</a></div>
