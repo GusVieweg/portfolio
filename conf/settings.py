@@ -200,4 +200,3 @@ EMAIL_HOST = 'smtp.webfaction.com'
 SERVER_EMAIL = 'support@josh-potter.com'
 DEFAULT_FROM_EMAIL = 'support@josh-potter.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-
