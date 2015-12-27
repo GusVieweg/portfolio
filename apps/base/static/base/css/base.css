@@ -49,8 +49,8 @@ body {
 }
 
 #hero img {
-    width: 200px;
-    height: 200px;
+    width: 20%;
+    height: auto;
     margin: 0 auto;
     display: block;
     border-radius: 2000px;
@@ -58,11 +58,7 @@ body {
 }
 
 #hero span {
-    color: white;
-    display: block;
-    font-size: 35pt;
-    font-family: quicksand;
-    padding-top: 20px;
+    display: none;
 }
 
 #content {
@@ -95,4 +91,22 @@ body {
 
 #contact-form textarea {
     height: 145px;
+}
+
+/* Large and up */
+@media only screen and (min-width: 64.063em) {
+
+    #hero img {
+        width: 200px;
+        height: 200px;
+    }
+
+    #hero span {
+        color: white;
+        display: block;
+        font-size: 35pt;
+        font-family: quicksand;
+        padding-top: 20px;
+    }
+
 }

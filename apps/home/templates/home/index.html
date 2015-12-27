@@ -4,8 +4,6 @@
 
 {% block css %}
         <link type="text/css" rel="stylesheet" href="{% static 'home/css/index.css' %}" />
-        <link type="text/css" rel="stylesheet" href="{% static 'blog/css/blog.css' %}" />
-        <link type="text/css" rel="stylesheet" href="{% static 'projects/css/projects.css' %}" />
 {% endblock %}
 
 {% block javascript %}
@@ -15,6 +13,10 @@
 
 {% block content %}
         <div id="content" ng-controller="ContentController as content">
+            <div id="sm-navigation">
+                <button ng-class="{ active: content.isSet(1) }" ng-click="content.setTab(1)">Projects</button>
+                <button ng-class="{ active: content.isSet(2) }" ng-click="content.setTab(2)">Blog</button>
+            </div>
             <div id="navigation">
                 <ul>
                     <li ng-class="{ active: content.isSet(1) }">
@@ -23,19 +25,15 @@
                     <li ng-class="{ active: content.isSet(2) }">
                         <span ng-click="content.setTab(2)">Blog</span>
                     </li>
-                    <li ng-class="{ active: content.isSet(3) }">
-                        <span ng-click="content.setTab(3)">Research</span>
-                    </li>
-                    <li><span>Contact</span></li>
                 </ul>
             </div>
             <div id="content-description">
                 <span ng-show="content.isSet(1)">List of notable projects I've worked on recently.</span>
                 <span ng-show="content.isSet(2)">My latest blog posts.</span>
-                <span ng-show="content.isSet(3)">My latest research posts.</span>
             </div>
-            <div ng-show="content.isSet(1)" ng-include="'projects/partials/list/'"></div>
-            <div ng-show="content.isSet(2)" ng-include="'blog/partials/list/'"></div>
-            <div ng-show="content.isSet(3)" ng-include="'research/partials/list/'"></div>
+            <div id="content-list">
+                <div ng-show="content.isSet(1)" ng-include="'projects/partials/list/'"></div>
+                <div ng-show="content.isSet(2)" ng-include="'blog/partials/list/'"></div>
+            </div>
         </div>
 {% endblock %}

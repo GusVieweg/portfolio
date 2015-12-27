@@ -7,5 +7,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include('apps.blog.urls')),
     url(r'^projects/', include('apps.projects.urls')),
-    url(r'^research/', include('apps.research.urls')),
 ]

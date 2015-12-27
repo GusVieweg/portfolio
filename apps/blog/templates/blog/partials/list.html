@@ -3,7 +3,7 @@
     <div class="icon">
         <img src="static/blog/imgs/{{ post.category.img_src }}" />
     </div>
-    <div>
+    <div class="listing-container">
         <div class="title"><a href="blog/{{ post.id }}" target="_blank">{{ post.title }}</a></div>
         <div class="date">{{ post.date_added | date:'longDate' }}</div>
         <p>{{ post.description }}</p>

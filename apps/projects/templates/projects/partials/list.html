@@ -3,7 +3,7 @@
     <div class="icon">
         <img src="static/projects/imgs/{{ project.img_src }}" />
     </div>
-    <div>
+    <div class="listing-container">
         <div class="title"><a href="{{ project.git }}" target="_blank">{{ project.title }}</a></div>
         <div class="date">{{ project.date | date:'longDate' }}</div>
         <p>{{ project.description }}</p>

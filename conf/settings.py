@@ -92,7 +92,6 @@ INSTALLED_APPS = [
     'apps.base',
     'apps.home',
     'apps.blog',
-    'apps.research',
     'apps.projects',
 ]
 
