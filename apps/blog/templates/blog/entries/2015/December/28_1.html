@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block post_content %}
+        <p>
+            This is just a quick update on the status of the site and my next plans on working on the project.
+            As you can see, I've removed both the contact and research tabs in favor of consolidating blog and
+            research posts together and eventually filtering posts returned based on the categories I place the
+            posts in. For instance, this post will belong to the administrative category. I've also tried making
+            the site itself a bit more responsive, removing text and creating larger buttons for smaller screens.
+        </p>
+        <p>
+            More interestingly, I've added my personal <a href="/wiki">wiki</a> containing content related to math
+            or computer science topics I've been studying. I've placed it in a publicly accessible place as I've
+            found I've wanted to reference the site a couple of times but have either been on mobile or on my Windows
+            side. I'll look into making the wiki responsive as well, but, for now, I'm happy with the state its
+            currently in.
+        </p>
+        <p>
+            With the wiki up now, I feel comfortable beginning my next post (regarding Fourier Transforms), which I
+            hope to have up and running before the end of the month.
+        </p>
+{% endblock %}
