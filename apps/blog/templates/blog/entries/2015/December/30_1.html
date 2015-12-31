@@ -1,0 +1,418 @@
+{% extends "blog/math.html" %}
+{% load static %}
+
+{% block javascript %}
+        {{ block.super }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.js"></script>
+{% endblock %}
+
+{% block post_content %}
+
+        <h2>Introduction</h2>
+        <p>
+            When working within some realm, mathematical or otherwise, it's often easier to modify data in such a way
+            that makes it simpler to understand and work with. For instance, when cooking, most people prefer working
+            with units they are familiar with. That being said, you would be hard pressed to find someone who was told
+            to pour 8 fluid ounces of milk into a mixing bowl who couldn't eventually figure out that this is
+            equivalent to a cup. This process isn't particularly remarkable but is ubiquitous in today's day and age
+            of globalization (primarily because of weird Western adoptions and traditions). From Celsius to
+            Fahrenheit, kilograms to pounds, liters to gallons, etc., conversion is a way of life.
+        </p>
+        <p>
+            We see the above is a one way means of conversion; that is, if we are given input in some terms we do not
+            understand, we can translate the information and immediately begin using it. So let's generalize to a
+            situation where two way conversion is necessary. The situation that comes to the forefront of my mind is
+            language. Consider a scenario regarding an English speaker and a Spanish speaker. Though they cannot communicate
+            directly, they could use a translator to speak between the two. From the perspective of the English speaker,
+            he gets input in Spanish, converts it to English, constructs a response, and converts it back to Spanish
+            to send back out.
+        </p>
+        <p>
+            This is all very obvious and frankly quite boring. But, at the risk of losing your attention all together,
+            I'll bring up one last, fundamental, concept. Though we may be using different units or languages to express
+            something, these different expressions refer to the exact same something. And when we start looking
+            at transformation in a more abstract manner regarding <em>representation</em> as opposed to conversion,
+            things get a bit more interesting. For example, consider the sound emitted by a frequency of \(\approx 261.6\)
+            Hz, which many may recognize as middle C. It's awkward to say this frequency is being converted to a tone
+            in the same manner as liters can be converted to gallons, but the idea that these two things represent
+            the same sound wave is significantly clearer. As such, I'll say this signal was transformed into a
+            different representation, though what this representation is I'll elaborate on in a moment.
+        </p>
+
+        <h2>Fourier Analysis</h2>
+        <p>
+            Before we jump into derivation, I think I should provide a bit of warning on the level of detail I'll be digging into.
+            I already anticipate this post being quite lengthy and, for the sake of brevity, I'm going to need to assume
+            some base level of knowledge. In particular, I'm going to write under the assumption that the reader understands
+            the concept of <a href="/wiki/index.php?title=Orthogonal_Projections" target="_blank">orthogonality</a>. Beyond
+            this though, I think one should be able to follow the reasoning for the most part.
+        </p>
+        <p>
+            Let's return back to the concept of music and sound waves. When working with a sound wave oscillating with a frequency \(f\) Hertz,
+            we can represent this wave as a function of time via the following: \[ y(t) = \sin{(2\pi ft)}. \] That is, for every unit of
+            time, we traverse an entire period \(f\) times. Suppose now you under went a simple experiment. A person with a piano in a
+            separate room began playing a single note. You, in a different room and with access to an identical piano, was given the frequency
+            of each key and asked to draw the waveform of the sound that other person was playing. Well, with the above formula for sound
+            waves and the piano, you could hit each key until you heard two identical notes, and then draw the waveform according to that
+            note's frequency.
+        </p>
+        <p>
+            So far so good. But what happens if the other pianist decided to hit two, three, etc. keys simultaneously? Are you willing to try
+            all combinations of keys to find the matching sound? Of course this is infeasible and would take far too long as the number of
+            notes kept increasing, but some people with perfect pitch <em>can</em> reproduce these sounds (and consequently draw the resulting
+            waveform), begging the question as to how this is possible. Well, after a bit of mulling around, it seems like the only satisfactory
+            explanation is that they can somehow decipher the individual notes and then recombine them together. This doesn't seem too far-fetched;
+            after all, waves of all kinds perform constructive and destructive interference as they pass through one another- it isn't as if the
+            waves themselves are physically combined. Rather, they are perceived this way.
+        </p>
+
+        <h3>Approximations</h3>
+        <p>
+            So now we have a theory on how the ear works, but can we ourselves determine how to perform this filtering of sorts? Well, this
+            turns out to be a tricky problem and one I don't want to tackle immediately. Instead, let's consider how we could approximate
+            some solution for a general perceived waveform. Hopefully with my hinting of the need to understand orthogonality earlier you
+            began thinking about some approximation methods related to that. In particular, I want to discuss
+            <a href="/wiki/index.php?title=Least_Squares" target="_blank">least squares</a>.
+        </p>
+
+        <h4>Discrete Example</h4>
+        <p>
+            As a quick refresher, let's discuss how least squares looks with some examples. If we have some set of points
+            \((x_1, y_1), (x_2, y_2),\) and \((x_3, y_3)\) and we try to match these points with some linear function
+            \(f(x) = c_1 + c_2x\), we note we can't have a perfect match in the general case. More systematically, we
+            are trying to solve the following system of equations:
+            \[
+                \left| \begin{array}{c}
+                c_1 + c_2x_1 &= y_1 \\
+                c_1 + c_2x_2 &= y_2 \\
+                c_1 + c_2x_3 &= y_3
+                \end{array} \right| \Rightarrow
+                \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ 1 & x_3 \end{bmatrix}
+                \begin{bmatrix} c_1 \\ c_2 \end{bmatrix} =
+                \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix}
+            \]
+            where
+            \[
+                A = \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ 1 & x_3 \end{bmatrix} \text{ and }
+                \vec{b} = \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix}.
+            \]
+            Finding the closest match though devolves down to just finding the orthogonal projection of \(\vec{b}\)
+            onto the subspace \(\bbr^2\). The orthogonal projection matrix boils down to the (ugly) equation
+            \[
+                (A^TA)^{-1}A^T = \left(
+                    \begin{bmatrix} 1 & 1 & 1 \\ x_1 & x_2 & x_3 \end{bmatrix}
+                    \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ 1 & x_3 \end{bmatrix}
+                \right)^{-1}
+                \begin{bmatrix} 1 & 1 & 1 \\ x_1 & x_2 & x_3 \end{bmatrix}
+            \]
+            where \(z = x_1^2 + x_2^2 + x_3^2\). Thus finding the best parameters for a linear fit follows:
+            \[
+                \begin{bmatrix} c_1 \\ c_2 \end{bmatrix} =
+                (A^TA)^{-1}A^T\vec{b} = \left(
+                    \begin{bmatrix} 1 & 1 & 1 \\ x_1 & x_2 & x_3 \end{bmatrix}
+                    \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ 1 & x_3 \end{bmatrix}
+                \right)^{-1}
+                \begin{bmatrix} 1 & 1 & 1 \\ x_1 & x_2 & x_3 \end{bmatrix}
+                \begin{bmatrix}
+                     y_1 \\ y_2 \\ y_3
+                \end{bmatrix}.
+            \]
+        </p>
+
+        <h4>Continuous Example</h4>
+        <p>
+            Applying this same concept in a continuous domain is not much different, but does require working in linear
+            spaces as opposed to vector spaces. Since the orthogonal projection was such a useful tool in the discrete
+            case above, it would prove nifty to have some continuous analogue to work with. Fortunately this is the case:
+            \[ \text{proj}_W\;f = \lrangle{\;f, g_1}g_1 + \lrangle{\;f, g_2}g_2 + \cdots + \lrangle{\;f, g_n}g_n \]
+            where (\(\inflate{g}{n}\)) is an orthonormal basis of \(W\), the subspace of some linear space with an
+            arbitrarily defined inner product. Readers should note that the above is directly analogous to the projection
+            of some vector onto the subspace of a vector space, but with use of the dot product as opposed to
+            an inner product.
+        </p>
+        <p>
+            So let's again assume we are trying to best-fit some linear function \(f(x) = c_1 + c_2x\) but to a
+            higher order polynomial function \(g(x) = x^n\) where \(n \geq 1\) as opposed to some set of discrete points. 
+            Assume we are working in the linear space \(C[-L, L]\) for some constant \(L \in \bbr\); that is the space 
+            consisting of continuous functions within the domain \([-L, L]\). Furthermore, let's define our inner product 
+            for any \(f, g \in C[-L, L]\) as such:
+            \[
+                \lrangle{\;f, g} = \int_{-L}^L f(t)g(t)\;dt =
+                \xlimit{m}{\infty} \sum_{k=1}^m f(t_k)g(t_k)\Delta{t} =
+                \xlimit{m}{\infty} \left(
+                    \begin{bmatrix} f(t_1) \\ f(t_2) \\ \vdots \\ f(t_m) \end{bmatrix} \cdot
+                    \begin{bmatrix} g(t_1) \\ g(t_2) \\ \vdots \\ g(t_m) \end{bmatrix}
+                \right)
+            \]
+            where each \(t_i\) represents a point equally spaced along the domain \([-L, L]\). Written this way,
+            it becomes clear that we are essentially performing the same operation as in the discrete case, but in a
+            manner fit for continuous inputs -- this is just the dot product in the continuous case!
+        </p>
+        <p>
+            So first let us construct an orthonormal basis of \(W\), which we'll define to be the subspace of
+            \(C[-L, L]\) consisting of linear functions. We note that \(1\) and \(x\) are orthonormal since
+            \[ \lrangle{1, x} = \int_{-L}^L 1 \cdot x \; dx = \frac{x^2}{2} \bigg|_{-L}^{\;L} = 0 \]
+            as desired. Thus, all that remains is making sure we find the the corresponding norms:
+            \[
+                \|1\| = \sqrt{\lrangle{1, 1}} = \sqrt{\int_{-L}^L dx } = \sqrt{2L} \quad \text{and} \quad
+                \|x\| = \sqrt{\lrangle{x, x}} = \sqrt{\int_{-L}^L x^2\;dx } = \sqrt{\frac{2L^3}{3}},
+            \]
+            yielding our orthonormal basis
+            \[ \text{span}\left(\frac{1}{\sqrt{2a}}, \sqrt{\frac{3}{2L^3}}x\right). \]
+            Finally our best-fit is
+            \[
+                \begin{align*} \text{proj}_Wg
+                    &= \lrangle{\sqrt{2L}, g}\sqrt{2L} + \lrangle{\sqrt{\frac{2L^3}{3}}x, g}\sqrt{\frac{2L^3}{3}}x \\
+                    &= 2L\lrangle{1, g} + \frac{2L}{3}\lrangle{x, g}x \\
+                    &= 2L\frac{x^{n+1}}{n+2}\bigg|_{-L}^{\;L} + \frac{2L}{3}\frac{x^{n+2}}{n+2}\bigg|_{-L}^{\;L} x \\
+                    &= 2L\left[\frac{L^{n+1}}{n+1} - \frac{(-L)^{n+1}}{n+1}\right] +
+                        \frac{2L}{3}\left[\frac{L^{n+2}}{n+2} - \frac{(-L)^{n+2}}{n+2}\right]x.
+                \end{align*}
+            \]
+        </p>
+
+        <h3>A New Basis</h3>
+        <p>
+            Alright, so let's return to the concept of isolating waveforms. That is, how can we go about determining
+            which notes make up a conglomerate sound? Well, as it stands, one thing we know is that each note individually
+            can be represented very basically by a sine wave. Thus the total sound is just some summation of sine waves.
+            Continuing our idea of using approximations, let's just go ahead and assume that some given sound
+            can be represented by \(2n + 1\) different waveforms (why I chose this odd number should make sense in one
+            moment). Considering what we've been working through up to now, a reasonable approach on formulating some
+            best guess would be something akin to least squares.
+        </p>
+
+        <h4>Sinusoidal Form</h4>
+        <p>
+            In fact, we can actually use the least-squares method, but only if we define a reasonable orthonormal basis
+            and linear subspace. For the sake of brevity, I will simply tell you that our basis can be defined as so:
+            \[
+                \text{span}\left( \frac{1}{\sqrt{2}}, \sin{t}, \cos{t}, \sin{2t}, \cos{2t},
+                \ldots, \sin{nt}, \cos{nt} \right),
+            \]
+            for a total of \(2n + 1\) elements, and our subspace can be defined as \(T_n \subseteq C[-\pi, \pi]\) (i.e.
+            the subspace spanned by our new basis). Lastly we define a new inner product to be used as follows:
+            \[ \lrangle{\;f, g} = \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)g(t)\;dt. \] 
+            Ensuring each vector in our basis is linearly independent and a unit vector is left to the reader as an exercise.
+        </p>
+        <p>
+            More interesting is the fact that we can use this basis to find the best fit for any continuous piecewise
+            function with respect to \(T_n\). Though perhaps deriving the above isn't exactly trivial, I hope the
+            understanding as to how to utilize this tool is -- we can now deconstruct some collection of sounds into
+            a reasonably accurate sum of sinusoidal waves! In particular, the best approximation for some function \(f\)
+            in \(T_n\) is
+            \[
+                \text{proj}_{T_n}\;f = a_0\frac{1}{\sqrt{2}} + b_1\sin{(t)}
+                    + c_1\cos{(t)} + \cdots + b_n\sin{(nt)} + c_n\cos{(nt)}
+            \]
+            where
+            \[
+                \begin{align*}
+                    a_0 &= \lrangle{\;f(t), \frac{1}{\sqrt{2}}} = \frac{1}{\pi\sqrt{2}}\int_{-\pi}^{\pi} f(t)\;dt \\
+                    b_k &= \lrangle{\;f(t), \sin{(kt)}} = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t)\sin{(kt)}\;dt \\
+                    c_k &= \lrangle{\;f(t), \cos{(kt)}} = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t)\cos{(kt)}\;dt.
+                \end{align*}
+            \]
+        </p>
+
+        <h4>Further Generalizations</h4>
+        <p>
+            Before moving on to the actual transformation we are slowly working towards, let's rewrite our given
+            series in a more general and more compact way. First off, it isn't necessary to limit ourselves to the
+            domain \([-\pi, \pi]\). Just like in our previous example, we can instead work within some arbitrary domain
+            \([-L, L]\), where \(2L\) represents the period of our series in units of Hertz. Establishing the new inner
+            product space as
+            \[
+                \lrangle{\;f, g} = \frac{1}{L}\int_{-L}^L f(t)g(t)\;dt,
+            \]
+            we can rewrite the more generalized Fourier series like
+            \[
+                \text{proj}_{T_n}\;f = a_0\frac{1}{\sqrt{2}} +
+                    b_1\sin{\left(\frac{\pi t}{L}\right)} +
+                    c_1\cos{\left(\frac{\pi t}{L}\right)} + \cdots +
+                    b_n\sin{\left(\frac{\pi nt}{L}\right)} +
+                    c_n\cos{\left(\frac{\pi nt}{L}\right)}
+            \]
+            where
+            \[
+                \begin{align*}
+                    a_0 &= \lrangle{\;f(t), \frac{1}{\sqrt{2}}} = \frac{1}{L\sqrt{2}}\int_{-L}^{L} f(t)\;dt \\
+                    b_k &= \lrangle{\;f(t), \sin{\left(\frac{\pi kt}{L}\right)}}
+                        = \frac{1}{L}\int_{-L}^L f(t)\sin{\left(\frac{\pi kt}{L}\right)}\;dt \\
+                    c_k &= \lrangle{\;f(t), \cos{\left(\frac{\pi kt}{L}\right)}}
+                        = \frac{1}{L}\int_{-L}^L f(t)\cos{\left(\frac{\pi kt}{L}\right)}\;dt
+                \end{align*}
+            \]
+            One last simplification follows from the definition of angular velocity, i.e.
+            \[ \omega_k = \frac{2k\pi}{2L} = \frac{k\pi}{L}. \]
+            We rewrite in the expanded sinusoidal form for the final time the Fourier series as:
+            \[
+                \text{proj}_{T_n}\;f = a_0\frac{1}{\sqrt{2}} +
+                    \sum_{k=1}^{\infty} \big[b_k\sin{(\omega_kt)} + c_k\cos{(\omega_kt)}\big]
+            \]
+        </p>
+
+        <h2>The Fourier Transform</h2>
+        <p>
+            At this point lets take a step back and make sure we understand exactly what we've done. First, we've discovered
+            that we can make a best-fit approximation via the least-squares method. Then we found that we could construct
+            an orthonormal basis using just sine, cosine, and a single constant value. Lastly, we saw that we could generalize
+            this orthonormal basis to work within some arbitrary period \(L\) as opposed to \(\pi\). Now, we shall perform
+            one last compaction of the projection that will make it much easier to work with before we move to the whole
+            point of this derivation.
+        </p>
+
+        <h3>The Derivation</h3>
+        <p>
+            This will be arithmetical in nature, so feel free to glance over the details. I include them for my own sake
+            though, as I believe them to be quite subtle. Based on definition, we find that
+            \[ \Delta{\omega} = \omega_{n+1} - \omega_n = \frac{\pi(n+1)}{L} = \frac{\pi n}{L} = \frac{\pi}{L}. \]
+            Going back to our projection formula, let's go ahead and simply plug our values in:
+            \[
+                \begin{align*}
+                \text{proj}_{T_n}\;f
+                    &= a_0\frac{1}{\sqrt{2}} + \sum_{k=1}^{\infty} \big[b_k\sin{(\omega_kt)} + c_k\cos{(\omega_kt)}\big] \\
+                    &= \left(\frac{1}{L\sqrt{2}}\int_{-L}^{L} f(r)\;dr\right)\frac{1}{\sqrt{2}} +
+                        \sum_{k=1}^{\infty} \left[
+                            \left(\frac{1}{L}\int_{-L}^L f(t)\sin{(\omega_kr)}\;dr\right)\sin{(\omega_kt)} +
+                            \left(\frac{1}{L}\int_{-L}^L f(t)\cos{(\omega_kr)}\;dr\right)\cos{(\omega_kt)}
+                        \right] \\
+                    &= \frac{\Delta\omega}{2\pi}\left(\frac{1}{L\sqrt{2}}\int_{-L}^{L} f(r)\;dr\right) +
+                        \frac{\Delta\omega}{\pi}\sum_{k=1}^{\infty} \left[
+                            \left(\int_{-L}^L f(t)\sin{(\omega_kr)}\;dr\right)\sin{(\omega_kt)} +
+                            \left(\int_{-L}^L f(t)\cos{(\omega_kr)}\;dr\right)\cos{(\omega_kt)}
+                        \right]
+                \end{align*}
+            \]
+            As of now, we've limited ourselves to work within some domain, but can we actually generalize even further
+            to the entire real domain, i.e. \((-\infty, \infty)\)? There is no reason we can't. As such, consider what
+            happens when we take \(L \rightarrow \infty\) or \(\Delta\omega \rightarrow 0\):
+            \[
+                \begin{align*}
+                    f(t)
+                        &= 0 + \frac{1}{\pi} \int_0^\infty
+                            \left(\int_{-\infty}^\infty f(r)\sin{(\omega r)}\;dr\right)\sin{(\omega t)} +
+                            \left(\int_{-\infty}^\infty f(r)\cos{(\omega r)}\;dr\right)\cos{(\omega t)}
+                        \;d\omega \\
+                        &= \frac{1}{\pi} \int_0^\infty
+                                \int_{-\infty}^\infty f(r)\left(
+                                    \sin{(\omega r)}\sin{(\omega t)} +
+                                    \cos{(\omega r)}\cos{(\omega t)}
+                                \right)\;dr
+                        \;d\omega \\
+                        &= \frac{1}{\pi} \int_0^\infty
+                                \int_{-\infty}^\infty f(r)\cos{(\omega t - \omega r)}\;dr
+                        \;d\omega
+                \end{align*}
+            \]
+            Since cosine is an even function, by symmetry I can consider the integral from \(-\infty\) to \(\infty\) so
+            long as I divide the result by two like so:
+            \[
+                f(t) = \frac{1}{2\pi} \int_{-\infty}^\infty
+                    \int_{-\infty}^\infty f(r)\cos{(\omega t - \omega r)}\;dr\;d\omega
+            \]
+            Now, we know sine is an odd function meaning the integral over a sine wave is \(0\). Thus, I can
+            add any multiple of sine inside our double integral and the resulting value will be the same. In particular,
+            I can do the following:
+            \[
+                \begin{align*}
+                    f(t) &= \frac{1}{2\pi} \int_{-\infty}^\infty
+                            \int_{-\infty}^\infty f(r)\cos{(\omega t - \omega r)} +
+                            f(r)i\sin{(\omega t - \omega r)} \;dr\;d\omega \\
+                    &= \frac{1}{2\pi} \int_{-\infty}^\infty \int_{-\infty}^\infty f(r)
+                        (\cos{(\omega t - \omega r)} + i\sin{(\omega t - \omega r)}) \;dr\;d\omega \\
+                    &= \frac{1}{2\pi} \int_{-\infty}^\infty \int_{-\infty}^\infty f(r) e^{i(\omega t - \omega r)} \;dr\;d\omega
+                \end{align*}
+            \]
+            Lastly, I perform one last distribution
+            \[
+                f(t) =
+                    \frac{1}{2\pi} \int_{-\infty}^\infty
+                    \left(\int_{-\infty}^\infty f(r) e^{-i\omega r} \;dr\right)e^{i\omega t}\;d\omega,
+            \]
+            a change of variables
+            \[
+                f(t) =
+                        \frac{1}{2\pi} \int_{-\infty}^\infty
+                        \left(\int_{-\infty}^\infty f(t) e^{-i\omega t} \;dt\right)e^{i\omega t}\;d\omega,
+            \]
+            and one final abstraction
+            \[
+                f(t) = \frac{1}{2\pi} \int_{-\infty}^\infty F(\omega)e^{i\omega t}\;d\omega.
+            \]
+        </p>
+
+        <h3>What Now?</h3>
+        <p>
+            I think one more review is in order, as we've constructed a couple of tools to use.
+            <ol>
+                <li><strong>Fourier Series</strong></li>
+                <p>
+                    \[
+                        \text{proj}_{T_n}\;f = a_0\frac{1}{\sqrt{2}} +
+                            \sum_{k=1}^{\infty} \big[b_k\sin{(\omega_kt)} + c_k\cos{(\omega_kt)}\big]
+                    \]
+                    The Fourier Series allows us to decompose any piecewise periodic function into some discrete number
+                    of constituent sinusoidal waves. 
+                <p>
+                <li><strong>Fourier Transform</strong></li>
+                <p>
+                    \[ F(\omega) = \int_{-\infty}^\infty f(t) e^{-i\omega t} \;dt \]
+                    The Fourier Transform, by extending our period to \(\infty\) (i.e. <em>aperiodic</em>),
+                    represents any general function as a continuous integral of complex exponentials. Keeping in mind
+                    we can technically work with different domains, in the above case we are effectively transforming 
+                    our function of time to a function of frequency. Now, this should still be a bit mysterious. How 
+                    do we know the actual transformation represents the same thing?
+                </p>
+                <li><strong>Inverse Fourier Transform</strong></li>
+                <p>
+                    \[ f(t) = \frac{1}{2\pi} \int_{-\infty}^\infty F(\omega)e^{i\omega t}\;d\omega \]
+                    The Inverse Fourier Transform takes the function within the frequency domain and returns it
+                    back to the domain of time. The existence of this function is absolutely astounding. We note that
+                    the Fourier Transform, this equation that converts our function of time to another other function 
+                    of angular velocity, must actually represent the same underlying entity. After all, if I can
+                    switch back and forth between the two, the difference must be superficial by definition!
+                </p>
+            </ol>
+            <p>
+                It may be slightly confusing as to how we know the Fourier Transform is one-to-one so to speak, but this follows
+                from construction. Since we have an orthonormal basis, any function has a unique representation in terms of the
+                Fourier Series, and the Fourier Transform is merely a generalization of this.
+            </p>
+        </p>
+
+        <h2>Conclusion</h2>
+        <p>
+            I hope this came off as a relatively gentle introduction to the Fourier Transform. Ultimately, the arithmetic isn't too
+            important to follow so long as the general gist is understood. Everytime I read about the transform, I was confused as
+            to what exactly was being transformed. People would say from time to frequency, but I didn't understand how that really
+            made sense until I went through the derivation myself. If you are still confused or unsure how transformations function, think
+            about how a number of other transformations that arise day to day work:
+        </p>
+        <p>
+            <ol>
+                <li><a href="/wiki/index.php?title=Isomorphisms" target="_blank">Isomorphisms</a></li>
+                <p>
+                    Consider what an isomorphism is. I'm working in one structure, but it is structurally identical to another.
+                    Ultimately it doesn't matter which I choose to work with; I should just choose the easier one.
+                </p>
+                <li><a href="/wiki/index.php?title=Jacobian" target="_blank">Jacobian</a></li>
+                <p>
+                    I find the Jacobian to be very similar to the Fourier Transform conceptually speaking. After all, it allows 
+                    a change of variables (e.g. integrating over polar coordinates as opposed to cartesian coordinates) as does
+                    the Fourier Transform.
+                </p>
+                <li><a href="/wiki/index.php?title=Change_of_Basis" target="_blank">Change of Basis</a></li>
+                <p>
+                    The simplest example (beyond just bijective functions) that I could think of. Two bases of a subspace are
+                    essentially equivalent and can be switched from and to at will.
+                </p>
+            </ol>
+        </p>
+        <p>
+            In any case, thanks for reading. At the time of writing, I have yet to add contact functionality but once I do, feel
+            free to shoot me any questions. I'll do my best to answer them or find someone who can ☺.
+        </p>
+
+{% endblock %}
