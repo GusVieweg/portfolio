@@ -3,7 +3,10 @@ from django.db import models
 
 class PostCategory(models.Model):
     """
+    Represents a category a post belongs too.
 
+    If the Post object itself has a null img_src, it defaults to the img_src
+    of the category the post belongs to.
     """
     name = models.CharField(max_length=255)
     img_src = models.URLField(max_length=255)
@@ -11,6 +14,7 @@ class PostCategory(models.Model):
     def __str__(self):
         """
         For display in dropdowns for Django Admin
+
         :return:
         """
         return self.name
@@ -23,6 +27,7 @@ class Post(models.Model):
     The blog model is merely a reference to an HTML file to pull from.
     """
     title = models.CharField(max_length=255)
+    img_src = models.URLField(max_length=255, null=True)
     category = models.ForeignKey(PostCategory, default=1)
     last_modified = models.DateField(auto_now=True)
     date_added = models.DateField(auto_now_add=True)
