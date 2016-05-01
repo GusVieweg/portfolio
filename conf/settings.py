@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Load environment variables
 # ============================================
 # Environment variables should NEVER be placed in this configuration file. Instead,
@@ -31,6 +32,7 @@ try:
 except IOError:
     pass
 
+
 # Project Base
 # ============================================
 # https://docs.djangoproject.com/en/1.9/ref/settings/#root-urlconf
@@ -38,6 +40,7 @@ except IOError:
 
 ROOT_URLCONF = 'apps.home.urls'
 WSGI_APPLICATION = 'conf.wsgi.application'
+
 
 # Debugging
 # ============================================
@@ -50,6 +53,7 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 
 DEBUG = 'WEBFACTION' not in os.environ
 
+
 # Security (Secret Key)
 # ============================================
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -61,6 +65,7 @@ if DEBUG:
     SECRET_KEY = '%030x' % random.randrange(16**30)
 else:
     SECRET_KEY = os.environ.get('SECRET_KEY', '')
+
 
 # Allowed Hosts
 # ============================================
@@ -95,6 +100,7 @@ INSTALLED_APPS = [
     'apps.projects',
 ]
 
+
 # Middleware Classes
 # ============================================
 # https://docs.djangoproject.com/en/1.9/ref/settings/#middleware-classes
@@ -110,6 +116,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 # Database
 # ============================================
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -122,6 +129,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
     }
 }
+
 
 # Templates
 # ============================================
@@ -143,6 +151,7 @@ TEMPLATES = [
     },
 ]
 
+
 # Password Validation
 # ============================================
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -161,6 +170,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 # Internationalization
 # ============================================
@@ -183,6 +193,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'vendor'),
 )
 
+
 # Administrators
 # ============================================
 # https://docs.djangoproject.com/en/1.9/ref/settings/#admins
@@ -190,6 +201,7 @@ STATICFILES_DIRS = (
 ADMINS = (
     ('jrpotter', 'jrpotter2112@gmail.com'),
 )
+
 
 # Email
 # ============================================

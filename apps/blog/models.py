@@ -9,7 +9,6 @@ class PostCategory(models.Model):
     of the category the post belongs to.
     """
     name = models.CharField(max_length=255)
-    img_src = models.URLField(max_length=255)
 
     def __str__(self):
         """
@@ -29,7 +28,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     img_src = models.URLField(max_length=255, null=True)
     category = models.ForeignKey(PostCategory, default=1)
-    last_modified = models.DateField(auto_now=True)
-    date_added = models.DateField(auto_now_add=True)
     description = models.TextField(null=True, blank=True)
     content_url = models.URLField(max_length=255)
+    date_added = models.DateField()
+    last_modified = models.DateField(auto_now=True)

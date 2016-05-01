@@ -13,10 +13,10 @@ def revise_categories(apps, schema_editor):
     :return:
     """
     PostCategory = apps.get_model("blog", "PostCategory")
-    PostCategory(name='math', img_src='math-icon.png').save()
+    PostCategory(name='math', img_src='math.png').save()
     default = PostCategory.objects.get(name='default')
     default.name = 'admin'
-    default.img_src = 'admin-icon.png'
+    default.img_src = 'admin.png'
     default.save()
 
 

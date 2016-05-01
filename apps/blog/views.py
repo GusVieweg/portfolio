@@ -17,7 +17,7 @@ def blog_post(request, pk):
     """
     try:
         post = Post.objects.get(pk=pk)
-        return render(request, post.content_url, {
+        return render(request, 'blog/entries/' + post.content_url, {
             'title': post.title,
             'category': PostCategory.objects.get(id=post.category_id),
             'date_added': post.date_added,

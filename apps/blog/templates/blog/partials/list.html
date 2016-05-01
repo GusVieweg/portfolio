@@ -2,7 +2,8 @@
 <section class="listing" ng-repeat="post in content.posts">
     <div class="icon">
         <a href="blog/{{ post.id }}" target="_blank">
-            <img src="static/blog/imgs/{{ post.category.img_src }}" />
+            <img ng-if="post.img_src === null" src="static/blog/imgs/categories/{{ post.category.name }}.png" />
+            <img ng-if="post.img_src !== null" src="static/blog/imgs/{{ post.img_src }}" />
         </a>
     </div>
     <div class="listing-container">

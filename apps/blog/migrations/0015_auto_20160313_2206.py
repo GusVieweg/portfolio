@@ -13,7 +13,7 @@ def add_category(apps, schema_editor):
     :return:
     """
     PostCategory = apps.get_model("blog", "PostCategory")
-    PostCategory(name='personal', img_src='personal-icon.png').save()
+    PostCategory(name='personal', img_src='personal.png').save()
 
 
 def import_post(apps, schema_editor):
@@ -25,7 +25,7 @@ def import_post(apps, schema_editor):
     """
     Post = apps.get_model("blog", "Post")
     PostCategory = apps.get_model("blog", "PostCategory")
-    Post(title="Vandwelling Life", category=PostCategory.objects.get(name="personal"), description="Why I'm deciding to live in a van, for at least a bit of time.", content_url="blog/entries/2016/March/13_1.html").save()
+    Post(title="Vandwelling Life", category=PostCategory.objects.get(name="personal"), description="Why I'm deciding to live in a van, for at least a bit of time.", content_url="blog/entries/2016/May/1_1.html").save()
 
 
 class Migration(migrations.Migration):
